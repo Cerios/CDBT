@@ -31,14 +31,23 @@ public class LineReader extends AbstractReader {
     public void openFile(String filename) throws IOException {
         File f = new File(filename);
 
-        if (!f.exists()) throw new IOException("Error: File not found.");
+        if (!f.exists()) throw new IOException("Error: File not found: " + filename);
 
         iterator_ = FileUtils.lineIterator(f);
 
         boolean successfulSetup = false;
 
         if (iterator_.hasNext()) {
-            String type = filename.substring(filename.lastIndexOf('/') + 1, filename.lastIndexOf('.'));
+
+            //TODO: Make this not gaping
+            //Simple way of accounting for forward and back slashes
+            int x = filename.lastIndexOf('/');
+            int y = filename.lastIndexOf('\\');
+
+            //We take the later mark as correct
+            int z = (x > y ? x : y);
+
+            String type = filename.substring(z + 1, filename.lastIndexOf('.'));
             String line = iterator_.nextLine();
 
             setupTemplate(type, line);
@@ -83,6 +92,7 @@ public class LineReader extends AbstractReader {
     @Override
     public TableData getDataTemplate() { return dataTemplate_; }
 
+    //Pulls column names from the first line of a .csv file
     protected void setupTemplate(String type, String firstLine) {
         boolean success = false;
 
@@ -95,6 +105,7 @@ public class LineReader extends AbstractReader {
         }
     }
 
+    //Parse data out of .csv line using splits
     protected TableData convertLine(String line) {
 
         //Return null for null
@@ -114,6 +125,7 @@ public class LineReader extends AbstractReader {
         else return null;
     }
 
+    //Strips " from start and end of string
     protected String stripQuotes(String string) {
         return (string != null ? string.replaceAll("^\"|\"$", "") : null);
     }

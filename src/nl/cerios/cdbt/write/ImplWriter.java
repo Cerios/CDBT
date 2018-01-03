@@ -28,7 +28,7 @@ public class ImplWriter extends AbstractWriter {
         indent_ = "    ";
     }
 
-    //Attempts to open the file
+    //Attempts to open the file with Absolute Path
     @Override
     public void openFile(String filename) throws IOException {
         writer_ = new BufferedWriter(new FileWriter(filename, false));
@@ -48,6 +48,12 @@ public class ImplWriter extends AbstractWriter {
 
         if (data != null) {
 
+            if (itemCount_ >= 1)
+            {
+
+                writer_.write(newLine_);
+            }
+
             writer_.write(data.getDataType() +
                     ((data.getAlias() != null && data.getAlias() != "") ? "(" + data.getAlias() + ")" : "") +
                     ":" + newLine_);
@@ -57,7 +63,6 @@ public class ImplWriter extends AbstractWriter {
                 writer_.write(indent_ + c + ": " + data.getData(c) + newLine_);
             }
 
-            writer_.write(newLine_);
 
             //writer_.write(data.toString() + newLine_);
 
@@ -72,6 +77,7 @@ public class ImplWriter extends AbstractWriter {
     @Override
     public int getItemCount() { return itemCount_; }
 
+    //Uses a simple toString to output the table data
     public boolean writeAsText(TableData data) {
         boolean written = false;
         try {

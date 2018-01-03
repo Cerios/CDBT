@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.io.File;
 import java.util.LinkedHashMap;
 
-//TODO: Investigate order of output cols
+//TODO: Make item limit work
 //TODO: Finish Mask implementation
 //TODO: Make 2for1 code in Masks neat
 //TODO: Advanced Config options
@@ -48,7 +48,7 @@ public class Application {
     //Masks
     protected ArrayList<AbstractMask> maskList_;
 
-    //Reader
+    //Reader and Writer
     AbstractReader reader_;
     AbstractWriter writer_;
 
@@ -56,6 +56,7 @@ public class Application {
 
     public Application(){}
 
+    //Runs the application with the given args
     public void run(String[] args){
         Options o = setupOptions();
         parseArgs(args, o);
@@ -292,7 +293,7 @@ public class Application {
 
     }
 
-    //Output a log message/
+    //Output a log message with a level
     public void outputLog(String logLine, logLevel_ level) {
         if (level.ordinal() <= curLogLevel_.ordinal() && level.ordinal() > 0)
         {

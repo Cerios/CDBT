@@ -1,6 +1,6 @@
 package nl.cerios.cdbt.data;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Set;
 
 /**
@@ -10,20 +10,20 @@ public class TableData {
     private String dataType_;
     private String alias_;
 
-    private HashMap<String, String> data_;
+    private LinkedHashMap<String, String> data_;
 
     public TableData(String dataType) {
         dataType_ = dataType;
         alias_ = null;
 
-        data_ = new HashMap<String, String>();
+        data_ = new LinkedHashMap<String, String>();
     }
 
     public TableData(TableData tableData) {
         dataType_ = tableData.getDataType();
         alias_ = tableData.getAlias();
 
-        data_ = new HashMap<String, String>();
+        data_ = new LinkedHashMap<String, String>();
         copyData(tableData);
     }
 
@@ -84,6 +84,7 @@ public class TableData {
 
     public String getDataType() { return dataType_; }
 
+    //Raw string output of all contained data
     public String toString() {
         String out = "[" + dataType_ + "]";
 

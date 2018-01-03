@@ -9,17 +9,11 @@ import java.util.Set;
  * Created by dwhelan on 20/12/2017.
  */
 public class DataMask extends AbstractMask {
-
     public DataMask() {
         mask = new LinkedHashMap<String, String>();
     }
 
-    @Override
-    public void addRule(String col, String data) {
-        super.addRule(col, data);
-    }
-
-    //DataMask: Match col name, replace data
+    //DataMask: Match column name, replace data with mask input
     @Override
     public TableData applyMask(TableData tableData) {
         //Create output

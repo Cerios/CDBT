@@ -9,17 +9,11 @@ import java.util.Set;
  * Created by dwhelan on 20/12/2017.
  */
 public class ColMask extends AbstractMask {
-
     public ColMask() {
         mask = new LinkedHashMap<String, String>();
     }
 
-    @Override
-    public void addRule(String col, String replace) {
-        super.addRule(col, replace);
-    }
-
-    //Match col name, rename col
+    //ColMask: Match column name, rename column with mask input
     @Override
     public TableData applyMask(TableData tableData) {
         //Create output
