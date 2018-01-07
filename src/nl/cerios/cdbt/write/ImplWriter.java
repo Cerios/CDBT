@@ -48,9 +48,8 @@ public class ImplWriter extends AbstractWriter {
 
         if (data != null) {
 
-            if (itemCount_ >= 1)
+            if (itemCount_ > 0)
             {
-
                 writer_.write(newLine_);
             }
 
@@ -62,9 +61,6 @@ public class ImplWriter extends AbstractWriter {
             {
                 writer_.write(indent_ + c + ": " + data.getData(c) + newLine_);
             }
-
-
-            //writer_.write(data.toString() + newLine_);
 
             itemCount_ += 1;
             success = true;

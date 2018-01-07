@@ -9,6 +9,7 @@ Uses external libraries not included in git, place in CDBT/lib/
 Apache commons:
 commons-cli-1.4.jar
 commons-io-2.6.jar
+commons-csv-1.5.jar
 
 SnakeYaml:
 snakyaml-1.19.jar

@@ -35,8 +35,6 @@ public class LineReader extends AbstractReader {
 
         iterator_ = FileUtils.lineIterator(f);
 
-        boolean successfulSetup = false;
-
         if (iterator_.hasNext()) {
 
             //TODO: Make this not gaping
@@ -94,11 +92,9 @@ public class LineReader extends AbstractReader {
 
     //Pulls column names from the first line of a .csv file
     protected void setupTemplate(String type, String firstLine) {
-        boolean success = false;
-
         dataTemplate_ = new TableData(type);
 
-        String[] data = firstLine.split(",");
+        String[] data = firstLine.split("\",\"");
 
         for (String s : data) {
             dataTemplate_.addData(stripQuotes(s), "");
@@ -111,7 +107,7 @@ public class LineReader extends AbstractReader {
         //Return null for null
         if (line == null) return null;
 
-        String[] data = line.split(",");
+        String[] data = line.split("\",\"");
         if (data.length == dataTemplate_.getColumnCount()) {
             TableData td = new TableData(dataTemplate_);
 
@@ -122,7 +118,9 @@ public class LineReader extends AbstractReader {
             return td;
         }
 
-        else return null;
+        else
+            System.out.println(data.length + "!=" + dataTemplate_.getColumnCount());return null;
+
     }
 
     //Strips " from start and end of string

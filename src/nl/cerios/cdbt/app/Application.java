@@ -14,6 +14,7 @@ import nl.cerios.cdbt.read.AbstractReader;
 import nl.cerios.cdbt.write.AbstractWriter;
 
 import nl.cerios.cdbt.read.LineReader;
+import nl.cerios.cdbt.read.CSVReader;
 import nl.cerios.cdbt.write.ImplWriter;
 
 import java.io.FileInputStream;
@@ -63,7 +64,7 @@ public class Application {
 
         outputLog("Parsed args OK", logLevel_.INFO);
 
-        reader_ = new LineReader();
+        reader_ = new CSVReader();
         writer_ = new ImplWriter();
         maskList_ = new ArrayList<AbstractMask>();
 
@@ -77,13 +78,12 @@ public class Application {
         try {
             reader_.openFile(compilePath(inputDir_, inputFile_));
             outputLog("Setup Reader OK", logLevel_.INFO);
-            outputLog("Data Template: " + reader_.getDataTemplate().toString(), logLevel_.DEBUG);
+            outputLog("Data Template: " + reader_.getDataTemplate().toString(), logLevel_.DEBUG);//TODO: Template could be null
             outputLog("Read File: " + inputFile_, logLevel_.DEBUG);
 
             writer_.openFile(compilePath(outputDir_, outputFile_));
             outputLog("Setup Writer OK", logLevel_.INFO);
-            outputLog("Writer File: " + outputFile_, logLevel_.DEBUG);
-
+            outputLog("Write File: " + outputFile_, logLevel_.DEBUG);
 
             //==Work
             for (TableData data = reader_.readItem(); data != null; data = reader_.readItem()) {
@@ -228,7 +228,9 @@ public class Application {
             }
         }
 
+        //TODO: Make this detect and ignore blank entries
         else if (entryTitle.equalsIgnoreCase("ColMask")) {
+
             LinkedHashMap<String, String> maskcfg = entry.get(entryTitle);
 
             ColMask mask = new ColMask();
